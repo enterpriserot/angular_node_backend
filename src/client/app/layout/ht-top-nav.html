@@ -1,0 +1,28 @@
+<nav id="topNav" class="navbar navbar-default navbar-fixed-top" ng-controller="MenuController as vm">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a id="logo" class="navbar-brand page-scroll" href="#/">r</a>
+        </div>
+        <div class="navbar-collapse collapse" id="bs-navbar">
+            <ul class="nav navbar-nav">
+                <li class="nlightblue fade-selection-animation" ng-class="vm.isCurrent(r)" ng-repeat="r in vm.navRoutes">
+                  <a ui-sref="{{r.name}}" ng-bind-html="r.settings.content"></a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li id="LogProf">
+                  <a href="#" class="button special" data-toggle="modal" id="Login" data-target="#LoginModal">Acceder</a>
+              </li>
+                <li>
+                    <a class="page-scroll" data-toggle="modal" title="A free Bootstrap video landing theme" href="#aboutModal">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
