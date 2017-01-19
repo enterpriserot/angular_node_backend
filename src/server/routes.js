@@ -1,10 +1,14 @@
 var router = require('express').Router();
 var four0four = require('./utils/404')();
 var data = require('./data');
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
+var sg = require('./sendgrid.env');
 
 router.get('/people', getPeople);
 router.get('/person/:id', getPerson);
 router.get('/*', four0four.notFoundMiddleware);
+router.post('/contact/:send', sendContact);
 
 module.exports = router;
 
@@ -25,4 +29,20 @@ function getPerson(req, res, next) {
   } else {
     four0four.send404(req, res, 'person ' + id + ' not found');
   }
+}
+
+function sendContact(req, res){
+    var options = {
+        auth: {
+            api_key: sg
+        }
+    }
+    var mailer = nodemailer.createTransport(sgTransport(options));
+    mailer.sendMail(req.body, function(error, info){
+        if(error){
+            res.status('401').json({err: info});
+        }else{
+            res.status('200').json({success: true});
+        }
+    });
 }
